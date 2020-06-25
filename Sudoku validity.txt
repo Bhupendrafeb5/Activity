@@ -1,0 +1,38 @@
+Explaining the logic for sudoku checkValidity
+
+Three type of check validity is performed in checkValidity method
+public boolean checkValidity(int sudoku[][], int row, int column, int digit);
+
+Part1:
+Checking the validity of digit against row
+In this row index is kept constant  "sudoku[row][r] == digit"
+r is increasing from 0 to sudoku.length-1
+If that particular digit is found then return false
+
+ 
+Part2:
+Checking the validity of digit against column
+In this column index is kept constant  "sudoku[c][column] == digit"
+c is increasing from 0 to sudoku.length-1
+If that particular digit is found then return false 
+
+Part3:
+Checking the validity of digit against corresponding 3*3 box
+In this part squareroot of length of sudoku is taken
+with the help of we can find the [0][0] index of 3*3 square
+using this square we will check whether that number is present inside that 3*3 square
+
+Following is logic used
+for (int r = boxRow; r < boxRow + sqrt; r++) {
+			for (int c = boxColumn; c < boxColumn + sqrt; c++) {
+				if (sudoku[r][c] == digit) {
+					
+					return false;
+				}
+			}
+		}
+
+In this for loop the starting index of box row is holded in 'r' variable
+against that row the entire column of 3*3 box is tested 
+As the number of loop increase the row 'r' variable gets incremented and entire column of box 3*3 against that 'r' index is tested  		
+		

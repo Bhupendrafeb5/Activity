@@ -1,0 +1,77 @@
+Explaining the logic for Card Sequence 
+
+The code consist of checkSequence method having return type boolean
+boolean checkValidity(mySudoku, 5, 7, 4)
+
+The checking of Card Sequence is divided into two parts
+
+Part 1:
+Checking whether all cards are having same type of card
+
+In this part '#' character is used to fetch the card type because before hash card type in mentioned in string
+when at initial stage cardType == 0 the tpye of card is captured 
+and this type of card matched with all remaining cards type in string
+If type of card dosent match then it return false 
+otherwise the flow goes to next part
+
+Part 2:
+Checking whether cards are is in sequence
+
+In this part properSequence String array is used for refernece in which the cards are stored in properSequence
+In this getNumberOfCards method is used which returns the number of cards present in string based in ',' present in String
+
+public static int getNumberOfCards(String cardSequence) {//this method returns  the number of cards present in String 
+		int count = 0;
+
+		for (int i = 0; i < cardSequence.length(); i++) {
+			if (cardSequence.charAt(i) == ',') {
+				count++;
+			}
+		}
+		return count + 1;
+	}
+
+
+Now the cards are taken out from the main string(cardSequence) and stored in array named=card
+with the help of '#' beacuse cards are mentioned just after the '#'
+Special care taken for card "10" in this step beacuse "10" consist of two char while fetching char from string
+After this Mapping of the cards with the proper sequence of cards 
+we have used findIndex method to find the index of  String element in String array
+
+	public static int findIndex(String arr[], String t) {//this method returns the index of element in array
+
+		int index = -1;
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].equals(t)) {
+				index = i;
+				break;
+			}
+		}
+		return index;
+	}
+	
+	
+At first when for loop starts we take the index number  from  properSequence array  of first element present in card array	
+and store it as previousIndex 
+
+	for (int i = 0; i < card.length; i++) {//Mapping the cards with the proper sequence of cards 
+			//System.out.println(findIndex(properSequence, card[i]));
+
+			if (i == 0) {
+				previousIndex = findIndex(properSequence, card[i]);
+
+			} else {
+				a = findIndex(properSequence, card[i]);
+				if (a != previousIndex + 1) {
+
+					return false;
+				}
+				previousIndex = a;
+			}
+		}
+		
+After that in else we check that next index(a) is not equal to previousIndex+1 if not equal then return false, if equal then peviousIndex = next index(a);
+
+If all the above condotion is satisfied then method returns true
+
+
